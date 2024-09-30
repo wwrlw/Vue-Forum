@@ -9,42 +9,29 @@ import { createServer } from 'vite'
 // Express
 import express from 'express'
 
-// eslint-disable-next-line no-undef
-const isProd = process.env.NODE_ENV === 'production'
-
 // Helpers
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const resolve = (p) => path.resolve(__dirname, p)
 
 const getIndexHTML = async () => {
-    const indexHTML = isProd
-        ? resolve('../dist/client/index.html')
-        : resolve('../index.html')
+    const indexHTML = resolve('../index.html')
     const html = await fs.promises.readFile(indexHTML, 'utf-8')
     return html
 }
 
 async function start() {
-    const manifest = isProd
-        ? JSON.parse(fs.readFileSync(resolve('../dist/client/ssr-manifest.json'), 'utf-8'))
-        : null
+    const manifest = null
+    const ssrServer = resolve('./main-server.js')
 
     const app = express()
     const router = express.Router()
 
-    let vite = null
-    if (isProd) {
-        app.use(express.static('dist/client', { index: false }))
-    } else {
-        vite = await createServer({
-            // eslint-disable-next-line no-undef
-            root: process.cwd(),
-            server: { middlewareMode: true },
-            appType: 'custom'
-        })
+    const vite = await createServer({
+        server: { middlewareMode: true },
+        appType: 'custom'
+    })
 
-        app.use(vite.middlewares)
-    }
+    app.use(vite.middlewares)
 
     // Ловим все запросы, а вообще можно продублировать тут
     // логику из src/router.js
@@ -52,14 +39,9 @@ async function start() {
         try {
             const url = req.url
             let template = await getIndexHTML()
+            template = await vite.transformIndexHtml(url, template)
 
-            let render = null
-            if (isProd) {
-                render = (await import('../dist/server/main-server.js')).render
-            } else {
-                template = await vite.transformIndexHtml(url, template)
-                render = (await vite.ssrLoadModule(resolve('./main-server.js'))).render
-            }
+            let render = (await vite.ssrLoadModule(ssrServer)).render
 
             const [appHtml, preloadLinks] = await render(url, manifest)
             const html = template
@@ -68,9 +50,7 @@ async function start() {
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
         } catch (e) {
-            if (vite) {
-                vite.ssrFixStacktrace(e)
-            }
+            vite.ssrFixStacktrace(e)
             next(e)
         }
     })
@@ -78,7 +58,7 @@ async function start() {
     // Routes
     app.use('/', router)
 
-    app.listen(3000, () => {
+    app.listen(5173, () => {
         console.log('Сервер запущен')
     })
 }

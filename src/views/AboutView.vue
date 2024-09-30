@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <h1>AboutView</h1>
+  <div><h1>This is ViewPage</h1></div>
 </template>
 
 <style scoped>
