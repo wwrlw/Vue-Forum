@@ -1,5 +1,8 @@
 import '@/assets/styles.css'
 
+
+console.log(components)
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router/router.js'

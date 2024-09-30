@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <h1 class="text-5xl text-amber-50">123</h1>
+  <div class="app">
+    <Header/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Header from "@/layouts/Header.vue";
 export default {
-  name: 'App'
+  name: 'App',
+  components: {Header}
 }
 </script>
 
 <style scoped>
 
+  .app {
+    margin: 0 auto;
+  }
 </style>
