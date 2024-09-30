@@ -1,23 +1,15 @@
-<script >
-import AboutComponent from "@/components/AboutComponent.vue";
-import HomeComponent from "@/components/HomeComponent.vue"
-export default {
-  components: {
-    AboutComponent,
-    HomeComponent,
-  }
-}
-
-</script>
-
 <template>
   <div>
-    <AboutComponent/>
-    <HomeComponent/>
+    <router-view/>
   </div>
 </template>
 
-<style scoped>
+<script>
+export default {
+  name: 'App'
+}
+</script>
 
+<style scoped>
 
 </style>
