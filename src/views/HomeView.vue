@@ -1,18 +1,20 @@
 <script>
 import HomeComponent from "@/components/HomeComponent.vue";
 import AboutComponent from "@/components/AboutComponent.vue";
+import MainComponent from "@/components/MainComponent.vue";
 export default {
   name: "HomeView",
   components: {
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    MainComponent
   }
 }
 </script>
 
 <template>
-  <div><h1>This is HomePage</h1></div>
   <HomeComponent/>
+  <MainComponent/>
 </template>
 
 <style scoped>
