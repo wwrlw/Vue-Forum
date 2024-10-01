@@ -2,23 +2,28 @@
   <div class="main">
     <div class="item items_1">
       <SideBarComponent/>
+      <PopularTags class="mb-10"/>
+      <PinnedGroup/>
     </div>
 
     <div class="item items_2">
 
     </div>
     <div class="item items_3">
-
     </div>
   </div>
 </template>
 
 <script>
+import PopularTags from "@/components/Main/PopularTags.vue";
 import SideBarComponent from "@/components/Main/SideBarComponent.vue";
+import PinnedGroup from "@/components/Main/PinnedGroup.vue";
 export default {
   name: 'MainComponent',
   components: {
     SideBarComponent,
+    PopularTags,
+    PinnedGroup
   }
 
 }
@@ -35,7 +40,6 @@ export default {
   }
 
   .item {
-    border: 1px solid black;
   }
   .items_1 {
 
