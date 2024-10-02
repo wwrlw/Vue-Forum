@@ -1,7 +1,7 @@
 import '@/assets/styles.css'
 
 
-console.log(components)
+// console.log(components)
 
 import { createApp } from 'vue'
 import App from './App.vue'

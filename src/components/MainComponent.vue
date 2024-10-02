@@ -7,15 +7,20 @@
     </div>
 
     <div class="item items_2">
+      <CreatePostComponent class="mb-10"/>
+
       <PostComponent/>
     </div>
     <div class="item items_3">
-      <MeetupsComponent/>
+      <MeetupsComponent class="mb-10"/>
+      <PodcastComponent/>
     </div>
   </div>
 </template>
 
 <script>
+import CreatePostComponent from "@/components/Main/CreatePostComponent.vue";
+import PodcastComponent from "@/components/Main/PodcastComponent.vue";
 import MeetupsComponent from "@/components/Main/MeetupsComponent.vue";
 import PostComponent from "@/components/Main/PostComponent.vue";
 import PopularTags from "@/components/Main/PopularTags.vue";
@@ -29,6 +34,8 @@ export default {
     PinnedGroup,
     PostComponent,
     MeetupsComponent,
+    PodcastComponent,
+    CreatePostComponent,
   }
 
 }
