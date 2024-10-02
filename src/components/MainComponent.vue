@@ -7,14 +7,17 @@
     </div>
 
     <div class="item items_2">
-
+      <PostComponent/>
     </div>
     <div class="item items_3">
+      <MeetupsComponent/>
     </div>
   </div>
 </template>
 
 <script>
+import MeetupsComponent from "@/components/Main/MeetupsComponent.vue";
+import PostComponent from "@/components/Main/PostComponent.vue";
 import PopularTags from "@/components/Main/PopularTags.vue";
 import SideBarComponent from "@/components/Main/SideBarComponent.vue";
 import PinnedGroup from "@/components/Main/PinnedGroup.vue";
@@ -23,7 +26,9 @@ export default {
   components: {
     SideBarComponent,
     PopularTags,
-    PinnedGroup
+    PinnedGroup,
+    PostComponent,
+    MeetupsComponent,
   }
 
 }
