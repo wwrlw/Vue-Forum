@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="text-[#858ead] text-sm font-normal font-['Source Sans Pro'] leading-snug">Let’s share what going on your mind...</div>
-        <button @click="openModal" class="text-white text-sm font-bold px-4 py-3 bg-[#ff6934]
+        <button @click="openModal" class="text-white text-sm font-bold px-4 py-3 bg-red-700
         rounded-md hover:bg-[red]">
           Create Post
         </button>
@@ -26,12 +26,14 @@
 </template>
 
 <script>
+import axios from "axios";
 import ModalView from "@/views/ModalView.vue";
 export default {
   name: 'CreatePostComponent',
   data() {
     return {
       showModal: false,
+      response: '',
     }
   },
   methods: {
@@ -40,7 +42,18 @@ export default {
     },
     closeModal () {
       this.showModal = false;
-    }
+    },
+    async fetchPosts () {
+      try {
+        const response = await axios.get('')
+
+      } catch (error) {
+        console.error('Error fetching posts info: ', error)
+      }
+    },
+  },
+  mounted() {
+
   },
   components: {
     ModalView,

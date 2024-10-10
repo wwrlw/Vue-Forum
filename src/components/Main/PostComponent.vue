@@ -1,10 +1,80 @@
+<script>
+
+import { HeartIcon } from '@heroicons/vue/20/solid/index.js'
+import axios from "axios";
+import api from "@/api.js";
+
+export default {
+  name: 'PostComponent',
+  components: {
+    HeartIcon,
+  },
+  data() {
+    return {
+      posts: [],
+      comments: [],
+      photos: [],
+      users: [],
+    }
+  },
+  mounted() {
+    this.fetchPostsInfo();
+    this.fetchUsers();
+    this.fetchPhotos();
+  },
+  methods: {
+
+    // sliceStringTitle() {
+    //   if (this.posts.body.length > 20) {
+    //     this.posts.body.slice()
+    //   }
+    // },
+
+    async fetchPostsInfo() {
+      try {
+        const  response = await api.getPosts(4)
+        this.posts = response.data;
+
+        console.log(this.posts)
+
+      } catch (error) {
+        console.error('Error fetching posts: ', error)
+      }
+    },
+    async fetchUsers () {
+      try {
+        const response = await api.getUsers()
+        this.users = response.data;
+        console.log(this.users)
+      } catch (error) {
+        console.error('Error fetching users: ', error)
+      }
+    },
+    async fetchPhotos () {
+      try {
+        const response = await api.getPhotos()
+        this.photos = response.data;
+        console.log(this.photos)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  },
+}
+</script>
+
+
+
+
 <template>
-  <div v-for="post in posts" class="w-[785px] h-[196px] rounded-2xl bg-[#262d34] mb-10 flex justify-between gap-2.5 p-5">
+  <div v-for="post in posts" class="w-[785px] h-[196px] rounded-2xl bg-[#262d34] mb-10 flex gap-2.5 p-5">
     <img src="@/assets/images/Rectangle%2024.png" alt="123" class="w-[156px] h-[156px]">
     <div class="flex flex-col mr-14">
-      <div class="flex justify-between items-center gap-10 ">
+      <div class="flex justify-between items-center gap-10  ">
         <div class="text-amber-50 text-lg text-bold ">
-          {{ post.title }}
+          <a href="/">
+            {{ post.body.slice(0,100) + '...' }}
+          </a>
         </div>
         <div class="h-[25px] w-[25px] rounded-3xl bg-[#2C353D] flex items-center justify-center">
           <HeartIcon class="w-5 h-5 text-white"/>
@@ -51,35 +121,8 @@
 
   </div>
 
-
-
-
-  
-  
-  
-
 </template>
 
-<script>
-
-import { HeartIcon } from '@heroicons/vue/20/solid/index.js'
-export default {
-  name: 'PostComponent',
-  components: {
-    HeartIcon,
-  },
-  data() {
-    return {
-      posts: [
-          {id: 1, title: 'Blockchain developer best practices on innovationchain', user: 'admin', comment: '324,123'},
-          {id: 2, title: 'The 4-step SEO framework that led to a 1000% increase in traffic. Let’s talk about blogging and SEO...', user: 'admin1', comment: '324,123'},
-          {id: 3, title: 'OnePay - Online Payment Processing Web App\n' +
-                '- Download from uihut.com', user: 'admin2', comment: '324,123'}
-      ]
-    }
-  }
-}
-</script>
 
 <style  scoped>
 
